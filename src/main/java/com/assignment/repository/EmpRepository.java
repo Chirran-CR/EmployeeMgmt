@@ -12,5 +12,5 @@ public interface EmpRepository extends MongoRepository<Employee,String> {
     Optional<Employee> findById(String Id);
 
     Optional<Employee> findByName(String name);
-    Optional<Employee> createEmployee(Employee emp);
+//    Optional<Employee> createEmployee(Employee emp);
 }

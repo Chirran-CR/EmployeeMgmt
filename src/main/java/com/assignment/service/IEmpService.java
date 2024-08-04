@@ -5,7 +5,7 @@ import com.assignment.model.Employee;
 import java.util.Map;
 
 public interface IEmpService {
-    void createEmp(Employee emp);
+    Employee createEmp(Employee emp);
     Employee getEmpById(String Id) throws Exception;
     Employee getEmpByName(String name)throws Exception;
     Employee updateEmp(String Id, Map<String, Object> updatedData) throws Exception;

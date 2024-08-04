@@ -17,8 +17,8 @@ public class EmpService implements IEmpService{
     private EmpRepository empRepository;
 
     @Override
-    public void createEmp(Employee emp) {
-        empRepository.save(emp);
+    public Employee createEmp(Employee emp) {
+       return  empRepository.save(emp);
     }
 
     @Override

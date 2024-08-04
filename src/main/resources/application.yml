@@ -3,4 +3,11 @@ server:
 spring:
   application:
     name: Assignment
-
+  data:
+    mongodb:
+      database: EmployeeAssignment
+      host:
+        address: localhost:27017
+      uri: mongodb://localhost:27017/EmployeeAssignment
+    uri:
+      config: authSource=admin
