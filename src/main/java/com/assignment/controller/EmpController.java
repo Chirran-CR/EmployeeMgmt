@@ -2,8 +2,6 @@ package com.assignment.controller;
 
 import com.assignment.model.Employee;
 import com.assignment.service.EmpService;
-import lombok.extern.java.Log;
-import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -49,14 +48,14 @@ public class EmpController {
     }
 
     @GetMapping("/getbyname/{name}")
-    public ResponseEntity<Object> getEmployeeByName(@PathVariable String name){
+    public ResponseEntity<List<Employee>> getEmployeeByName(@PathVariable String name){
         LOG.info("EmpController:: getEmployeeByName started ");
         try{
-            Employee emp = empService.getEmpByName(name);
+            List<Employee> emp = empService.getEmpByName(name);
             return new ResponseEntity<>(emp,HttpStatus.OK);
         }catch(Exception e){
             LOG.error("EmpController:: Exception in getEmployeeByName: ",e);
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -81,6 +80,18 @@ public class EmpController {
            return new ResponseEntity<>("Emp data deleted",HttpStatus.OK);
         }catch (Exception e){
             LOG.error("EmpController:: Exception in deleteEmployee: ",e);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deletebyname/{name}")
+    public ResponseEntity<Object> deleteEmployeeByName(@PathVariable String name){
+        LOG.info("EmpController:: deleteEmployeeByName started ");
+        try{
+            empService.deleteEmployeesByName(name);
+            return new ResponseEntity<>("Employee Deleted",HttpStatus.OK);
+        }catch (Exception e){
+            LOG.error("EmpController:: Exception in deleteEmployeeByName: ",e);
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,8 +29,8 @@ public class EmpService implements IEmpService{
     }
 
     @Override
-    public Employee getEmpByName(String name) throws Exception{
-        Employee emp = empRepository.findByName(name).get();
+    public List<Employee> getEmpByName(String name) throws Exception{
+        List<Employee> emp = empRepository.findByName(name);
         return emp;
     }
 
@@ -54,5 +55,10 @@ public class EmpService implements IEmpService{
     @Override
     public void deleteEmpById(String Id)throws Exception {
         empRepository.deleteById(Id);
+    }
+
+    @Override
+    public void deleteEmployeesByName(String name) throws Exception{
+        empRepository.deleteEmployeesByName(name);
     }
 }
