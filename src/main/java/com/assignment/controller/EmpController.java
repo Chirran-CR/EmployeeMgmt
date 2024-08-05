@@ -34,13 +34,13 @@ public class EmpController {
     }
 
     @GetMapping("/get/{Id}")
-    public ResponseEntity<Object> getEmployee(@PathVariable String Id){
-        LOG.info("EmpController:: getEmployee method started ");
+    public ResponseEntity<Object> getEmployeeById(@PathVariable String Id){
+        LOG.info("EmpController:: getEmployeeById method started ");
         try{
             Employee emp = empService.getEmpById(Id);
             return new ResponseEntity<>(emp, HttpStatus.OK);
         }catch(Exception e){
-            LOG.error("EmpController:: Exception in getEmployee: ",e);
+            LOG.error("EmpController:: Exception in getEmployeeById: ",e);
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
