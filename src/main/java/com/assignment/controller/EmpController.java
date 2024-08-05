@@ -60,7 +60,7 @@ public class EmpController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<Object> updateEmployee(@RequestBody Map<String, Object> empData, @PathVariable String id){
         LOG.info("EmpController:: updateEmployee started ");
-        System.out.println("val of empData is:"+empData);
+
         try{
             Employee updatedEmp = empService.updateEmp(id, empData);
             return new ResponseEntity<>(updatedEmp,HttpStatus.OK);

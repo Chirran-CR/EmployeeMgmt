@@ -9,8 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -20,9 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @WebMvcTest(EmpController.class)
 public class EmpControllerTest {
@@ -87,14 +85,32 @@ public class EmpControllerTest {
     }
 
     @Test
-    public void deleteEmployeeByName() throws Exception{
+    public void deleteEmployeeByNameTest() throws Exception{
         emp = getEmployee();
         doNothing().when(empService).deleteEmployeesByName(emp.getName());
         mockMvc.perform(delete("/emp/deletebyname/{name}",emp.getName()))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void updateEmployeeTest() throws Exception{
+        emp = getEmployee();
+        //for updating
+        emp.setName("Chirran-2");
+        emp.setNumber(787878787L);
+        //updated data to be passed in request body
+        Map<String, Object> updatedData = new HashMap<>();
+        updatedData.put("name","Chirran-2");
+        updatedData.put("number",787878787L);
 
+        when(empService.updateEmp(emp.getId(), updatedData)).thenReturn(emp);
+
+        mockMvc.perform(patch("/emp/update/{id}",emp.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(updatedData))
+                ).andExpect(status().isOk());
+
+    }
     private Employee getEmployee(){
         Employee emp = new Employee();
         emp.setId(id);
