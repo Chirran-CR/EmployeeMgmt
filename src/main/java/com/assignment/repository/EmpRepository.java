@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Repository
 public interface EmpRepository extends MongoRepository<Employee,String> {
-//    @Override
+
     Optional<Employee> findById(String Id);
 
     List<Employee> findByName(String name);
-//    Optional<Employee> createEmployee(Employee emp);
+
     void deleteEmployeesByName(String name);
 }

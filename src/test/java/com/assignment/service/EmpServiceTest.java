@@ -16,6 +16,8 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,8 +25,17 @@ public class EmpServiceTest {
     private static final String id = "1";
     private static final String name = "Chirran";
     private static final String address = "Bhubaneswar";
-    private static final String dob = "10052000";
-    private static final String number = "123445";
+    private static final Date dob;
+
+    static {
+        try {
+            dob = new SimpleDateFormat("dd-MM-yyyy").parse("10-05-2000");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final long number = 909089899L;
     private Employee emp;
 
     @InjectMocks
@@ -75,12 +86,12 @@ public class EmpServiceTest {
         emp = getEmployee();
         Employee updatedEmp = getEmployee();
         updatedEmp.setName("Chirran-2");
-        updatedEmp.setNumber("9876");
+        updatedEmp.setNumber(787878787L);
         when(empRepository.findById(emp.getId())).thenReturn(Optional.of(emp));
         when(empRepository.save(any(Employee.class))).thenReturn(updatedEmp);
         Map<String, Object> updatedData = new HashMap<>();
         updatedData.put("name","Chirran-2");
-        updatedData.put("number","9876");
+        updatedData.put("number",787878787L);
 
         assertEquals(updatedEmp,empService.updateEmp(emp.getId(),updatedData));
     }

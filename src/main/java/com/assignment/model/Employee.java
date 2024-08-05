@@ -1,10 +1,13 @@
 package com.assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 @Document(collection = "employee")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -15,9 +18,10 @@ public class Employee {
     private String id;
 
     private String name;
-    private String number;
+    private long number;
     private String address;
-    private String dob;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date dob;
 
     public String getId() {
         return id;
@@ -35,11 +39,11 @@ public class Employee {
         this.name = name;
     }
 
-    public String getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 
@@ -51,23 +55,22 @@ public class Employee {
         this.address = address;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
-
 
     @Override
     public String toString() {
         return "Employee{" +
-                "Id='" + id + '\'' +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
+                ", number=" + number +
                 ", address='" + address + '\'' +
-                ", dob='" + dob + '\'' +
+                ", dob=" + dob +
                 '}';
     }
 }
