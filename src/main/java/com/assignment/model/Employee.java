@@ -14,17 +14,6 @@ public class Employee {
     @Id
     private String id;
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "Id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", address='" + address + '\'' +
-                ", dob='" + dob + '\'' +
-                '}';
-    }
-
     private String name;
     private String number;
     private String address;
@@ -34,12 +23,12 @@ public class Employee {
         return id;
     }
 
-//    public void setId(String id) {
-//        Id = id;
-//    }
-
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -68,5 +57,17 @@ public class Employee {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "Id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", address='" + address + '\'' +
+                ", dob='" + dob + '\'' +
+                '}';
     }
 }

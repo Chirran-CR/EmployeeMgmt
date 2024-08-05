@@ -54,11 +54,11 @@ public class EmpService implements IEmpService{
 
     @Override
     public void deleteEmpById(String Id)throws Exception {
-        empRepository.deleteById(Id);
+         empRepository.deleteById(Id);
     }
 
     @Override
     public void deleteEmployeesByName(String name) throws Exception{
-        empRepository.deleteEmployeesByName(name);
+         empRepository.deleteEmployeesByName(name);
     }
 }

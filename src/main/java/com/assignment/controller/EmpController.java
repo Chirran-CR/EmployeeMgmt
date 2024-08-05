@@ -24,10 +24,8 @@ public class EmpController {
     @PostMapping("/create")
     public ResponseEntity<Object> createEmployee(@RequestBody Employee empRequest){
         LOG.info("EmpController:: createEmployee method started ");
-        System.out.println("Val of emprequest is:"+empRequest);
         try{
             Object response = empService.createEmp(empRequest);
-            LOG.info("Val of response is:",response);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }catch (Exception e){
             LOG.error("EmpController:: Exception in createEmployee: ",e);

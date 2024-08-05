@@ -28,9 +28,6 @@ public class MongoTemplateConfig extends AbstractMongoClientConfiguration {
     @Value("${spring.data.mongodb.host.address}")
     private String mongodbHostAddress;
 
-//    @Value("${spring.data.uri.config}")
-//    private String mongodbUriConfig;
-
     @Value("${spring.data.mongodb.uri}")
     private String mongodbUriConfig;
 
@@ -39,7 +36,6 @@ public class MongoTemplateConfig extends AbstractMongoClientConfiguration {
     @Override
     @Bean
     public MongoClient mongoClient() {
-//        connectionString = new ConnectionString(mongodbUriConfig);
         return MongoClients.create(mongodbUriConfig);
     }
 
@@ -51,12 +47,4 @@ public class MongoTemplateConfig extends AbstractMongoClientConfiguration {
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
         return new MongoTemplate(mongoClient, getDatabaseName());
     }
-//    @Bean
-//    public MappingMongoConverter mappingMongoConverter() {
-//        MappingMongoConverter converter = new MappingMongoConverter(mongoDbFactory(), new MongoMappingContext());
-//        converter.setCustomConversions(new MongoCustomConversions(Collections.emptyList()));
-//        converter.setMapKeyDotReplacement("_"); // To handle dot notation if needed
-//        converter.setTypeMapper(new DefaultMongoTypeMapper(null)); // Avoid storing _class field
-//        return converter;
-//    }
 }
