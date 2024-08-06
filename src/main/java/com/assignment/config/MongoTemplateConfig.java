@@ -47,4 +47,11 @@ public class MongoTemplateConfig extends AbstractMongoClientConfiguration {
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
         return new MongoTemplate(mongoClient, getDatabaseName());
     }
+//    @Bean
+//    public MongoTemplate mongoTemplate(MongoClient mongoClient, MongoMappingContext context) {
+//        MappingMongoConverter converter = new MappingMongoConverter(
+//                mongoDbFactory(), context);
+//        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+//        return new MongoTemplate(mongoClient, getDatabaseName());
+//    }
 }
