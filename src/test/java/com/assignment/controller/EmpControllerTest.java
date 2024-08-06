@@ -10,11 +10,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -103,12 +102,16 @@ public class EmpControllerTest {
         updatedData.put("name","Chirran-2");
         updatedData.put("number",787878787L);
 
-        when(empService.updateEmp(emp.getId(), updatedData)).thenReturn(emp);
+        when(empService.updateEmp(eq(emp.getId()), anyMap())).thenReturn(emp);
 
         mockMvc.perform(patch("/emp/update/{id}",emp.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedData))
-                ).andExpect(status().isOk());
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Chirran-2"))
+                .andExpect(jsonPath("$.number").value(787878787L))
+                .andExpect(jsonPath("$.id").value(1));
+
 
     }
     private Employee getEmployee(){

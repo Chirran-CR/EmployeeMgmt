@@ -63,6 +63,7 @@ public class EmpController {
 
         try{
             Employee updatedEmp = empService.updateEmp(id, empData);
+            System.out.println("Val of updatedEmp is:"+updatedEmp);
             return new ResponseEntity<>(updatedEmp,HttpStatus.OK);
         }catch(Exception e){
             LOG.error("EmpController:: Exception in updateEmployee: ",e);
